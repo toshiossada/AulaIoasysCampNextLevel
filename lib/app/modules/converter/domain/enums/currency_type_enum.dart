@@ -1,4 +1,4 @@
-enum CurrencytypeEnum {
+enum CurrencyTypeEnum {
   usd,
   brl,
   eur,

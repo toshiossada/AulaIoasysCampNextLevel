@@ -13,26 +13,26 @@ class HomeController {
     required this.homeStore,
   });
 
-  search(CurrencytypeEnum currencyType) {
+  search(CurrencyTypeEnum currencyType) {
     homeStore.setLoading(true);
     //Faz alguma coisa
 
-    if (currencyType != CurrencytypeEnum.brl) realController.text = '1.00';
-    if (currencyType != CurrencytypeEnum.usd) dolarController.text = '1.00';
-    if (currencyType != CurrencytypeEnum.eur) euroController.text = '1.00';
+    if (currencyType != CurrencyTypeEnum.brl) realController.text = '1.00';
+    if (currencyType != CurrencyTypeEnum.usd) dolarController.text = '1.00';
+    if (currencyType != CurrencyTypeEnum.eur) euroController.text = '1.00';
 
     homeStore.setLoading(false);
   }
 
   onRealChanged(String value) {
-    search(CurrencytypeEnum.brl);
+    search(CurrencyTypeEnum.brl);
   }
 
   onDolarChanged(String value) {
-    search(CurrencytypeEnum.usd);
+    search(CurrencyTypeEnum.usd);
   }
 
   onEuroChanged(String value) {
-    search(CurrencytypeEnum.eur);
+    search(CurrencyTypeEnum.eur);
   }
 }
