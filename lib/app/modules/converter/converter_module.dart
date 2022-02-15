@@ -7,6 +7,7 @@ import 'domain/usecases/covert_currency.dart';
 import 'infra/datasources/currency_datasource.dart';
 import 'infra/repositories/currency_repository.dart';
 import 'infra/repositories/datasources/currency_datasource_interface.dart';
+import 'presentation/pages/about/about_page.dart';
 import 'presentation/pages/home/home_page.dart';
 
 class ConverterModule extends Module {
@@ -28,5 +29,6 @@ class ConverterModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (context, args) => const HomePage()),
+        ChildRoute('/about', child: (context, args) => const AboutPage()),
       ];
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../domain/enums/currency_type_enum.dart';
@@ -10,32 +12,42 @@ class HomeController {
   final euroController = TextEditingController();
   final HomeStore homeStore;
   final IConvertCurrency _convertCurrency;
+  Timer? _debounce;
 
   HomeController({
     required this.homeStore,
     required IConvertCurrency convertCurrency,
   }) : _convertCurrency = convertCurrency;
 
-  search(CurrencyTypeEnum currencyType) {
+  search(CurrencyTypeEnum currencyType, String value) async {
     homeStore.setLoading(true);
-    //Faz alguma coisa
+    if (_debounce != null && _debounce!.isActive) _debounce!.cancel();
+    _debounce = Timer(const Duration(microseconds: 1000), () async {
+      var result = await _convertCurrency(value, currencyType);
 
-    if (currencyType != CurrencyTypeEnum.brl) realController.text = '1.00';
-    if (currencyType != CurrencyTypeEnum.usd) dolarController.text = '1.00';
-    if (currencyType != CurrencyTypeEnum.eur) euroController.text = '1.00';
+      if (currencyType != CurrencyTypeEnum.brl) {
+        realController.text = result.realFormated;
+      }
+      if (currencyType != CurrencyTypeEnum.usd) {
+        dolarController.text = result.dolarFormated;
+      }
+      if (currencyType != CurrencyTypeEnum.eur) {
+        euroController.text = result.euroFormated;
+      }
 
-    homeStore.setLoading(false);
+      homeStore.setLoading(false);
+    });
   }
 
   onRealChanged(String value) {
-    search(CurrencyTypeEnum.brl);
+    search(CurrencyTypeEnum.brl, realController.text);
   }
 
   onDolarChanged(String value) {
-    search(CurrencyTypeEnum.usd);
+    search(CurrencyTypeEnum.usd, dolarController.text);
   }
 
   onEuroChanged(String value) {
-    search(CurrencyTypeEnum.eur);
+    search(CurrencyTypeEnum.eur, euroController.text);
   }
 }

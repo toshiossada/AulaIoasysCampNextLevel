@@ -1,5 +1,7 @@
-class HomeStore {
-  bool loading = false;
+import 'package:flutter/foundation.dart';
 
-  void setLoading(bool v) => loading = v;
+class HomeStore extends ValueNotifier<bool> {
+  HomeStore() : super(false);
+
+  void setLoading(bool v) => value = v;
 }

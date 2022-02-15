@@ -17,9 +17,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Image.asset('assets/images/logo.png'),
+        leading: GestureDetector(
+          onTap: () {
+            Modular.to.pushNamed('about');
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Image.asset('assets/images/logo.png'),
+          ),
         ),
         title: Text('title_converter'.i18n()),
       ),
@@ -49,6 +54,22 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               hintText: 'eur'.i18n(),
               prefix: 'eur_symbol'.i18n(),
               onChanged: controller.onEuroChanged,
+            ),
+            ValueListenableBuilder<bool>(
+              valueListenable: controller.homeStore,
+              builder: (context, value, widget) {
+                if (widget == null) return Container();
+
+                return Visibility(
+                  visible: value,
+                  child: widget,
+                );
+              },
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.pink,
+                ),
+              ),
             ),
           ],
         ),

@@ -3,8 +3,8 @@
     "brl": "BRL",
     "usd": "USD",
     "eur": "EUR",
-
     "brl_symbol": "R$",
     "usd_symbol": "U$",
-    "eur_symbol": "€$"
+    "eur_symbol": "€$",
+    "title_about": "Creado por ioasys"
 }
