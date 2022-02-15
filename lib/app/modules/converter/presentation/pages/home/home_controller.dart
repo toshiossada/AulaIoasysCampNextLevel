@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/enums/currency_type_enum.dart';
+import '../../../domain/usecases/covert_currency.dart';
 import 'home_store.dart';
 
 class HomeController {
@@ -8,10 +9,12 @@ class HomeController {
   final dolarController = TextEditingController();
   final euroController = TextEditingController();
   final HomeStore homeStore;
+  final IConvertCurrency _convertCurrency;
 
   HomeController({
     required this.homeStore,
-  });
+    required IConvertCurrency convertCurrency,
+  }) : _convertCurrency = convertCurrency;
 
   search(CurrencyTypeEnum currencyType) {
     homeStore.setLoading(true);
